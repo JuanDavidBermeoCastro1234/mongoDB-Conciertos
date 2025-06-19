@@ -1,0 +1,1 @@
+db.bandas.find({nombre:{$regex: "^[Aa]"}})
