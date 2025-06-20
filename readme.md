@@ -71,3 +71,26 @@
 
 
 ![](capturas/8.png)
+
+**Eliminar el boleto insertado anteriormente y Incrementar la capacidad del escenario.**
+
+    db.system.js.insertOne({
+    _id: "reversarCompra",
+    value: new Code(`
+        function(a, e, f) {
+        db.asistentes.updateOne(
+            { _id: ObjectId(a) },
+            { $pull: { boletos_comprados: { escenario: e, dia: f } } }
+        );
+        
+        db.escenarios.updateOne(
+            { nombre: e },
+            { $inc: { capacidad: 1 } }
+        );
+        
+        return { success: true };
+        }
+    `)
+    });
+
+![](capturas/9.png)
